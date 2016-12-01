@@ -6,6 +6,7 @@
 package com.kachundena.csvpuntswifi.webservice;
 
 import com.kachundena.csvpuntswifi.modelo.*;
+import com.kachundena.csvpuntswifi.util.*;
 import static com.kachundena.csvpuntswifi.controller.PUNTS_WIFI_Controller.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.io.IOException;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 
 /**
@@ -152,17 +154,24 @@ public class wsPuntWifi {
             notes = "Añade un punto de Wifi al final de fichero"
     )
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addPuntWifi(PUNT_WIFI PuntWifi) {
-         try {
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean addPuntWifi(PUNT_WIFI PuntWifi, 
+                            @HeaderParam("authorization") String keyString) {
+        try {
+            if(!Utilities.isCorrectKey(keyString)) {
+                return false;
+            }
             // Importar valores de CSV a lista
             PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Añadir el nuevo punto WIFI a la lista. Al final de esta.
             Lista.addPuntWifi(PuntWifi);
             // Exportar la lista al CSV
             exportCSV(Lista,Constantes.FILENAME_CSV,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            return true;
         }
         catch (Exception e) {
             System.console().printf(e.toString());
+            return false;
         }
        
     }
@@ -174,17 +183,27 @@ public class wsPuntWifi {
             notes = "Actualiza un punto Wifi concreto"
     )
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updatePuntWifi(PUNT_WIFI PuntWifi) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean updatePuntWifi(PUNT_WIFI PuntWifi, 
+                            @HeaderParam("authorization") String keyString) {
+        int i = 0;
+        i = 1;
+        
         try {
+            if(!Utilities.isCorrectKey(keyString)) {
+                return false;
+            }
             // Importar valores de CSV a lista
             PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Editar el punto WIFI de la linea. Para ello cogemos la linea del punto WIFI del parámetro
             Lista.editPuntWifi(PuntWifi.getLinea(), PuntWifi);
             // Exportar la lista al CSV
             exportCSV(Lista,Constantes.FILENAME_CSV,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            return true;
         }
         catch (Exception e) {
             System.console().printf(e.toString());
+            return false;
         }
         
     }
@@ -195,20 +214,28 @@ public class wsPuntWifi {
             value = "borrar un punto wifi",
             notes = "Borra un punto wifi de la linea especificada"
     )
-    public void deletePuntWifi(
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean deletePuntWifi(
             @ApiParam(value = "Linea Punto WIFI", allowableValues = "range[1," + Integer.MAX_VALUE + "]", required = true)
-            @PathParam("linea") int Linea) {
+            @PathParam("linea") int Linea, 
+            @HeaderParam("authorization") String keyString) {
         try {
+            if(!Utilities.isCorrectKey(keyString)) {
+                return false;
+            }
             // Importar valores de CSV a lista
             PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Borrar la entrada de la lista a partir de la linea indicada en el parámetro
             Lista.deletePuntWifi(Linea);
             // Exportar al CSV el resto de la lista
             exportCSV(Lista,Constantes.FILENAME_CSV,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            return true;
         }
         catch (Exception e) {
             System.console().printf(e.toString());
+            return false;
         }
+
     }
     
 }

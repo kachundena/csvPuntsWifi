@@ -14,4 +14,5 @@ public class Constantes {
     public static final String FILENAME_CSV  = "/home/alex/www/html/PUNTS_WIFI.csv";
     public static final String SEPARATOR_COL = ";";
     public static final String CODEPAGE = "ISO-8859-1";
+    public static final String KEY = "tr12fi34ma56";
 }

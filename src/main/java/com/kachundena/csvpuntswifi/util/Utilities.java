@@ -5,6 +5,10 @@
  */
 package com.kachundena.csvpuntswifi.util;
 
+import java.io.IOException;
+import sun.misc.BASE64Decoder;
+import com.kachundena.csvpuntswifi.modelo.*;
+
 /**
  *
  * @author alex
@@ -21,5 +25,15 @@ public class Utilities {
         retorno = String.valueOf(valor);
         retorno = retorno.replace(".",",");
         return retorno;
+    }
+    
+    public static boolean isCorrectKey(String keyString){
+        
+        if (Constantes.KEY.equals(keyString)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
