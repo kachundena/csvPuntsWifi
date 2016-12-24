@@ -7,7 +7,7 @@ package com.kachundena.csvpuntswifi.webservice;
 
 import com.kachundena.csvpuntswifi.modelo.*;
 import com.kachundena.csvpuntswifi.util.*;
-import static com.kachundena.csvpuntswifi.controller.PUNTS_WIFI_Controller.*;
+import static com.kachundena.csvpuntswifi.controller.PuntsWifiController.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -59,11 +59,11 @@ public class wsPuntWifi {
             notes = "Devuelve todos los puntos wifi"
     )
     @Produces(MediaType.APPLICATION_JSON)
-    public List<PUNT_WIFI> getListaPuntsWifi() throws IOException {
-        List<PUNT_WIFI> retorno = new ArrayList<PUNT_WIFI>();
+    public List<PuntWifi> getListaPuntsWifi() throws IOException {
+        List<PuntWifi> retorno = new ArrayList<PuntWifi>();
         try {
             // Importar valores de CSV a lista
-            PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            PuntsWifi Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Retornar todos los valores de la lista
             retorno = Lista.getAllPuntsWifi();
         }
@@ -80,13 +80,13 @@ public class wsPuntWifi {
             notes = "Devuelve un punto wifi concreto de una linea"
     )
     @Produces(MediaType.APPLICATION_JSON)
-    public PUNT_WIFI getPuntWifi(
+    public PuntWifi getPuntWifi(
             @ApiParam(value = "Linea Punto WIFI", allowableValues = "range[1," + Integer.MAX_VALUE + "]", required = true)
             @PathParam("linea") int linea) {
-        PUNT_WIFI retorno = new PUNT_WIFI();
+        PuntWifi retorno = new PuntWifi();
         try {
             // Importar valores de CSV a lista
-            PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            PuntsWifi Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // retornar la linea seleccionada
             retorno = Lista.getPuntWifi(linea);           
         }
@@ -104,13 +104,13 @@ public class wsPuntWifi {
             notes = "Devuelve los puntos wifis que hay en un distrito"
     )
     @Produces(MediaType.APPLICATION_JSON)
-    public List<PUNT_WIFI> getPuntsWifiDistricte(
+    public List<PuntWifi> getPuntsWifiDistricte(
             @ApiParam(value = "Código de distrito", allowableValues = "range[1," + Integer.MAX_VALUE + "]", required = true)
             @PathParam("distrito") int DISTRICTE) {
-        List<PUNT_WIFI> retorno = new ArrayList<PUNT_WIFI>();
+        List<PuntWifi> retorno = new ArrayList<PuntWifi>();
         try {
             // Importar valores de CSV a lista
-            PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            PuntsWifi Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Retornar todos los valores de la lista
             retorno = Lista.getPuntsWifiDistricte(DISTRICTE);
         }
@@ -128,13 +128,13 @@ public class wsPuntWifi {
             notes = "Devuelve los puntos wifis que hay en un barrio"
     )
     @Produces(MediaType.APPLICATION_JSON)
-    public List<PUNT_WIFI> getPuntsWifiBarri(
+    public List<PuntWifi> getPuntsWifiBarri(
             @ApiParam(value = "Código de barrio", allowableValues = "range[1," + Integer.MAX_VALUE + "]", required = true)
             @PathParam("barrio") int BARRI) {
-        List<PUNT_WIFI> retorno = new ArrayList<PUNT_WIFI>();
+        List<PuntWifi> retorno = new ArrayList<PuntWifi>();
         try {
             // Importar valores de CSV a lista
-            PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            PuntsWifi Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Retornar todos los valores de la lista
             retorno = Lista.getPuntsWifiBarri(BARRI);
         }
@@ -155,14 +155,14 @@ public class wsPuntWifi {
     )
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean addPuntWifi(PUNT_WIFI PuntWifi, 
+    public boolean addPuntWifi(PuntWifi PuntWifi, 
                             @HeaderParam("authorization") String keyString) {
         try {
             if(!Utilities.isCorrectKey(keyString)) {
                 return false;
             }
             // Importar valores de CSV a lista
-            PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            PuntsWifi Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Añadir el nuevo punto WIFI a la lista. Al final de esta.
             Lista.addPuntWifi(PuntWifi);
             // Exportar la lista al CSV
@@ -184,7 +184,7 @@ public class wsPuntWifi {
     )
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean updatePuntWifi(PUNT_WIFI PuntWifi, 
+    public boolean updatePuntWifi(PuntWifi PuntWifi, 
                             @HeaderParam("authorization") String keyString) {
         int i = 0;
         i = 1;
@@ -194,7 +194,7 @@ public class wsPuntWifi {
                 return false;
             }
             // Importar valores de CSV a lista
-            PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            PuntsWifi Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Editar el punto WIFI de la linea. Para ello cogemos la linea del punto WIFI del parámetro
             Lista.editPuntWifi(PuntWifi.getLinea(), PuntWifi);
             // Exportar la lista al CSV
@@ -224,7 +224,7 @@ public class wsPuntWifi {
                 return false;
             }
             // Importar valores de CSV a lista
-            PUNTS_WIFI Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
+            PuntsWifi Lista = importCSV(Constantes.FILENAME_CSV_URL,Constantes.SEPARATOR_COL,Constantes.CODEPAGE);
             // Borrar la entrada de la lista a partir de la linea indicada en el parámetro
             Lista.deletePuntWifi(Linea);
             // Exportar al CSV el resto de la lista

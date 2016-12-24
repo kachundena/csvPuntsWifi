@@ -7,19 +7,19 @@ import java.util.List;
 
 
 
-public class PUNTS_WIFI {
+public class PuntsWifi {
 
-	private List<PUNT_WIFI> PuntsWifi;
+	private List<PuntWifi> PuntsWifi;
 
-	public PUNTS_WIFI() {
-            PuntsWifi = new ArrayList<PUNT_WIFI>();
+	public PuntsWifi() {
+            PuntsWifi = new ArrayList<PuntWifi>();
 	}
 
 	/**
 	 * 
 	 * @param PuntWifi
 	 */
-	public void addPuntWifi(PUNT_WIFI PuntWifi) {
+	public void addPuntWifi(PuntWifi PuntWifi) {
             PuntsWifi.add(PuntWifi);
 	}
 
@@ -28,7 +28,7 @@ public class PUNTS_WIFI {
 	 * @param Linea
 	 * @param PuntWifi
 	 */
-	public void editPuntWifi(int Linea, PUNT_WIFI PuntWifi) {
+	public void editPuntWifi(int Linea, PuntWifi PuntWifi) {
             PuntsWifi.set(Linea, PuntWifi);
 	}
 
@@ -45,7 +45,7 @@ public class PUNTS_WIFI {
 	 * 
 	 * @param Linea
 	 */
-	public PUNT_WIFI getPuntWifi(int Linea) {
+	public PuntWifi getPuntWifi(int Linea) {
             return PuntsWifi.get(Linea);
 	}
 
@@ -53,7 +53,7 @@ public class PUNTS_WIFI {
             return PuntsWifi.size();
 	}
 
- 	public List<PUNT_WIFI> getAllPuntsWifi() {
+ 	public List<PuntWifi> getAllPuntsWifi() {
             return PuntsWifi;
 	}
        
@@ -61,12 +61,12 @@ public class PUNTS_WIFI {
         
 	/**
 	 * 
-	 * @param DISTRICTE
+	 * @param Districte
 	 */
-	public List<PUNT_WIFI> getPuntsWifiDistricte(int DISTRICTE) {
+	public List<PuntWifi> getPuntsWifiDistricte(int Districte) {
             int i = 0;
             while (i< PuntsWifi.size()) {
-                if (PuntsWifi.get(i).getDISTRICTE() != DISTRICTE) {
+                if (PuntsWifi.get(i).getDistricte() != Districte) {
                     PuntsWifi.remove(i); 
                 }  
                 else {
@@ -78,12 +78,12 @@ public class PUNTS_WIFI {
 
 	/**
 	 * 
-	 * @param BARRI
+	 * @param Barri
 	 */
-	public List<PUNT_WIFI> getPuntsWifiBarri(int BARRI) {
+	public List<PuntWifi> getPuntsWifiBarri(int Barri) {
             int i = 0;
             while (i< PuntsWifi.size()) {
-                if (PuntsWifi.get(i).getBARRI() != BARRI) {
+                if (PuntsWifi.get(i).getBarri() != Barri) {
                     PuntsWifi.remove(i); 
                 }  
                 else {
@@ -95,10 +95,10 @@ public class PUNTS_WIFI {
 
 	/**
 	 * 
-	 * @param LONGITUD
-	 * @param LATITUD
+	 * @param Longitud
+	 * @param Latitud
 	 */
-	public List<PUNT_WIFI> getNearPuntsWifi(float LONGITUD, float LATITUD) {
+	public List<PuntWifi> getNearPuntsWifi(float Longitud, float Latitud) {
 		// TODO - implement PUNTS_WIFI.getNearPuntsWifi
 		throw new UnsupportedOperationException();
 	}
